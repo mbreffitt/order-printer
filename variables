@@ -1,0 +1,540 @@
+===============================================================
+// General Variables
+===============================================================
+
+Shop name	
+{{ shop_name }}
+
+Order number	
+{{ order_number }}
+
+Order name (with # before number)	
+{{ order_name }} or {{ name }}
+
+Date	
+{{ date }} or {{ created_at }}
+
+Processed date	
+{{ processed_at }}
+
+Billing address	
+{{ billing_address }}
+
+Shipping address	
+{{ shipping_address }}
+
+Shipping methods (collection of shipping lines)	
+{{ shipping_methods }} or {{ shipping_lines }}
+
+Shipping method	
+{{ shipping_method.title }} or {{ shipping_line.title }}
+
+Customer	
+{{ customer }}
+
+Email	
+{{ email }}
+
+Financial status	
+{{ financial_status }}
+
+Fulfillment status	
+{{ fulfillment_status }}
+
+Fulfillment service	
+{{ fulfillment_service }}
+
+Discounts amount (collection of discount amounts)	
+{{ discounts_amount }}
+
+Discounts savings (collection of discount savings)	
+{{ discounts_savings }}
+
+Payment gateways	
+{{ gateways }}
+
+Payment gateway	
+{{ gateway }}
+
+Order Currency (currency code of order)	
+{{ order_currency }} or {{ currency }}
+
+Subtotal price	
+{{ subtotal_price | money }}
+
+Shipping price	
+{{ shipping_price | money }}
+
+Total discounts	
+{{ total_discounts | money }}
+
+Total tax	
+{{ total_tax | money }} or {{ tax_price | money }}
+
+Total price	
+{{ total_price | money }}
+
+Total paid	
+{{ total_paid | money }}
+
+Transactions	
+{{ transactions }}
+
+Order attributes	
+{{ attributes }}
+
+Order note	
+{{ note }}
+
+
+===============================================================
+// Shop details
+===============================================================
+
+Shop name	
+{{ shop.name }}
+
+Shop email	
+{{ shop.email }}
+
+Shop domain	
+{{ shop.domain }}
+
+Shop owner	
+{{ shop.owner }}
+
+Shop street address	
+{{ shop.address }}
+
+Shop street address line 2	
+{{ shop.address2 }}
+
+Shop city	
+{{ shop.city }}
+
+Shop province	
+{{ shop.province }}
+
+Shop province code	
+{{ shop.province_code }}
+
+Shop postal code / ZIP code	
+{{ shop.zip }}
+
+Shop country name	
+{{ shop.country }}
+
+Shop country code	
+{{ shop.country_code }}
+
+Shop phone number	
+{{ shop.phone }}
+
+
+===============================================================
+// Address details
+// Address details for the order.
+
+// You can select which address to use by specifying shipping_address, billing_address, or customer.default_address.
+===============================================================
+
+First name	
+{{ shipping_address.first_name }}
+
+Last name	
+{{ shipping_address.last_name }}
+
+Name	
+{{ shipping_address.name }}
+
+Company	
+{{ shipping_address.company }}
+
+Address 1	
+{{ shipping_address.address1 }}
+
+Address 2	
+{{ shipping_address.address2 }}
+
+Street	
+{{ shipping_address.street }}
+
+City	
+{{ shipping_address.city }}
+
+Province	
+{{ shipping_address.province }}
+
+Province code	
+{{ shipping_address.province_code }}
+
+Postal code / ZIP code	
+{{ shipping_address.zip }}
+
+Country	
+{{ shipping_address.country }}
+
+Country code	
+{{ shipping_address.country_code }}
+
+Phone number	
+{{ shipping_address.phone }}
+
+
+===============================================================
+// Customer details
+===============================================================
+
+Name	
+{{ customer.name }}
+
+Email	
+{{ customer.email }}
+
+Orders count	
+{{ customer.orders_count }}
+
+Default Address	
+{{ customer.default_address }}
+
+
+===============================================================
+// Discount details
+===============================================================
+
+Order discounts	
+{% for discount in discounts %}
+  ...
+{% endfor %}
+
+Code	
+{{ discount.code }} or {{ discount.title }}
+
+Amount	
+{{ discount.amount }}
+
+Savings	
+{{ discount.savings }}
+
+
+===============================================================
+// Line item details
+===============================================================
+
+Line items	
+{% for line_item in line_items %}
+  ...
+{% endfor %}
+
+Fulfilled line items	
+{% for line_item in fulfilled_line_items %}
+  ...
+{% endfor %}
+
+Unfulfilled line items	
+{% for line_item in unfulfilled_line_items %}
+  ...
+{% endfor %}
+
+Name	
+{{ line_item.name }}
+
+Title	
+{{ line_item.title }}
+
+Product title	
+{{ line_item.product_title }}
+
+Quantity	
+{{ line_item.quantity }}
+
+Fulfillable Quantity	
+{{ line_item.fulfillable_quantity }}
+
+Price	
+{{ line_item.price | money }}
+
+Line price	
+{{ line_item.line_price | money }}
+
+Original price	
+{{ line_item.original_price | money }}
+
+Total Discount	
+{{ line_item.total_discount | money }}
+
+Weight	
+{{ line_item.weight }} or {{ line_item.grams }}
+
+Weight with unit	
+{{ line_item.weight | weight_with_unit }}
+
+SKU	
+{{ line_item.sku }}
+
+Vendor	
+{{ line_item.vendor }}
+
+Fulfillment	
+{{ line_item.fulfillment }}
+
+Product	
+{{ line_item.product }}
+
+Variant	
+{{ line_item.variant }}
+
+Image	
+{{ line_item.image }}
+{{ line_item.image | img_url: 'thumb' | img_tag }}
+{{ line_item | img_url: 'thumb' | img_tag }}
+
+===============================================================
+// Refund details
+===============================================================
+
+Refunds	
+{% for refund in refunds %}
+  ...
+{% endfor %}
+Note	
+{{ refund.note }}
+
+Restock	
+{{ refund.restock }}
+
+Refund transactions	
+{% for refund_transaction in refund.transactions %}
+  ...
+{% endfor %}
+
+Refund line items	
+{% for refund_line_item in refund.refund_line_items %}
+  ...
+{% endfor %}
+
+Refund line item quantity	
+{{ refund_line_item.quantity }}
+
+Refund line item	
+{{ refund_line_item.line_item }}
+
+
+===============================================================
+// Transaction details
+===============================================================
+
+Transactions	
+{% for transaction in transactions %}
+  ...
+{% endfor %}
+
+Payment transactions	
+{% for transaction in payment_transactions %}
+  ...
+{% endfor %}
+
+Refund transactions	
+{% for transaction in refund_transactions %}
+  ...
+{% endfor %}
+
+Amount	
+{{ transaction.amount | money }}
+
+Authorization	
+{{ transaction.authorization }}
+
+Date	
+{{ transaction.date }} or {{ transaction.created_at }}
+
+Gateway	
+{{ transaction.gateway }}
+
+Payment method (eg: bank transfer, credit card)	
+{{ transaction.gateway | payment_method }}
+
+Kind (eg: authorization, capture, refund)	
+{{ transaction.kind }}
+
+Message	
+{{ transaction.message }}
+
+Status	
+{{ transaction.status }}
+
+
+===============================================================
+// Shipping line details
+===============================================================
+
+Shipping lines	
+{% for shipping_line in shipping_lines %}
+  ...
+{% endfor %}
+
+Title	
+{{ shipping_line.title }}
+
+Price	
+{{ shipping_line.price | money }}
+
+
+===============================================================
+// Tax line details
+===============================================================
+
+Tax lines	
+{% for tax_line in tax_lines %}
+  ...
+{% endfor %}
+
+Title	
+{{ tax_line.title }}
+
+Rate	
+{{ tax_line.rate }}
+
+Price	
+{{ tax_line.price | money }}
+
+
+===============================================================
+// Fulfillment details
+===============================================================
+
+Fulfillments	
+{% for fulfillment in fulfillments %}
+  ...
+{% endfor %}
+
+Date	
+{{ fulfillment.date }} or {{ fulfillment.created_at }}
+
+Tracking number	
+{{ fulfillment.tracking_number }}
+
+Tracking company	
+{{ fulfillment.tracking_company }}
+
+
+===============================================================
+// Product details
+===============================================================
+
+Title	
+{{ product.title }}
+
+Price	
+{{ product.price | money }}
+
+Content	
+{{ product.content }}
+
+Description	
+{{ product.description }}
+
+Handle	
+{{ product.handle }}
+
+Option names	
+{{ product.options }}
+
+Tags	
+{{ product.tags }}
+
+Type	
+{{ product.type }}
+
+Vendor	
+{{ product.vendor }}
+
+URL (eg: /products/product-handle)	
+{{ product.url }}
+
+Featured image (first image)	
+{{ product.featured_image | img_url: 'large' | img_tag }}
+
+Images	
+{{ product.images }}
+
+Variants	
+{{ product.variants }}
+
+
+===============================================================
+// Variant details
+===============================================================
+
+Title	
+{{ variant.title }}
+
+Price	
+{{ variant.price | money }}
+
+Compare at price	
+{{ variant.compare_at_price | money }}
+
+Weight	
+{{ variant.weight }} or {{ variant.grams }}
+
+Weight with unit	
+{{ variant.weight | weight_with_unit }}
+
+Inventory quantity	
+{{ variant.inventory_quantity }}
+
+SKU	
+{{ variant.sku }}
+
+Barcode	
+{{ variant.barcode }}
+
+Option 1	
+{{ variant.option1 }}
+
+Option 2	
+{{ variant.option2 }}
+
+Option 3	
+{{ variant.option3 }}
+
+Image	
+{{ variant.image }}
+{{ variant.image | img_url: 'thumb' | img_tag }}
+{{ variant | img_url: 'thumb' | img_tag }}
+
+===============================================================
+// Filters
+// Available liquid filters.
+===============================================================
+
+File URL	
+{{ 'file.txt' | files_url }}
+
+Asset URL	
+{{ 'style.css' | asset_url }}
+
+Script tag	
+{{ 'script.js' | asset_url | script_tag }}
+
+Stylesheet tag	
+{{ 'style.css' | asset_url | stylesheet_tag }}
+
+Image tag	
+{{ 'example.png' | img_tag }}
+
+Image URL	
+{{ product.featured_image | img_url: 'large' | img_tag }}
+
+Money format	
+{{ product.price | money }}
+
+Money format with currency	
+{{ product.price | money_with_currency }}
+
+Money format without currency	
+{{ product.price | money_without_currency }}
+
+Money format without decimals	
+{{ product.price | money_no_decimals }}
