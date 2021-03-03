@@ -1,0 +1,53 @@
+{% comment %} 
+Snippet for excluding refunded items from the purchased items
+{% endcomment %} 
+    {% assign refunded_items = "" %}
+    {% for refund in refunds %}
+      {% for refund_line_item in refund.refund_line_items %}
+        {% assign refunded_items = refunded_items | append: refund_line_item.line_item_id | append: ':' | append: refund_line_item.quantity | append: ','%}
+      {% endfor %}
+    {% endfor %}
+    {% assign refunded_items_array = refunded_items | split: ',' %}
+    {% comment %} End of code edits by MattB @shopify on Mar. 01, 2021 {% endcomment %}
+
+    {% for line_item in line_items %}
+      {% comment %} Added by MattB @shopify on Mar. 01, 2021 {% endcomment %} 
+      {% assign non_refunded_quantity = line_item.quantity %}
+      {% assign line_item_id = line_item.id | append: '' %}
+      {% if refunded_items contains line_item_id %}
+        {% for refunded_item in refunded_items_array %}
+          {% assign split_refunded_item = refunded_item | split: ':'%}
+          {% if split_refunded_item.first == line_item_id %}
+            {% assign non_refunded_quantity = line_item.quantity | minus: split_refunded_item.last %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if non_refunded_quantity == 0 %}{% continue %}{% endif %}
+      {% comment %} End of code edits by MattB @shopify on Mar. 01, 2021 {% endcomment %} 
+      {% if non_refunded_quantity > 0 %}
+	      <tr>
+	        <td>{{ non_refunded_quantity }} x</td>
+	        <td><b>{{ line_item.title }}</b></td>
+	        </td>
+	      </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% comment %}
+Shows a list of refunded items
+{% endcomment %}
+{% for refund in refunds %}
+	{% for refund_line_item in refund.refund_line_items %}
+	   {{ <b> refund_line_item.title }}
+	    Refund line item quantity:    
+	    {{ refund_line_item.quantity }} </br>
+	    Refund line item: </br>    
+	     {% for line in line_items %}
+		      {% if refund_line_item.line_item_id == line.id </b>%}
+		      {{ line.title }}
+		      {% endif %}   
+        {% endfor %}  
+	{% endfor %}
+{% endfor %}
